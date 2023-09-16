@@ -1,10 +1,40 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<BasicASPTutorial.Models.Student>;
 @{
-    ViewData["Title"] = "Student Page";
+    ViewData["Title"] = "คะแนนสอบ";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Yoshi</h1>
-</div>
+<h1 class="text-center">คะแนนสอบ</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>รหัสนักศึกษา</th>
+            <th>ชื่อ</th>
+            <th>คะแนน</th>
+            <th>ผลสอบ</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Score</td>
+                @if (item.Score >= 50)
+                {
+                    <td>
+                        <strong class="text-success">ผ่าน</strong>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <strong class="text-danger">ไม่ผ่าน</strong>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+
+</table>
