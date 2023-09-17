@@ -3,38 +3,52 @@
     ViewData["Title"] = "คะแนนสอบ";
 }
 
-<h1 class="text-center">คะแนนสอบ</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>รหัสนักศึกษา</th>
-            <th>ชื่อ</th>
-            <th>คะแนน</th>
-            <th>ผลสอบ</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+
+@if (Model.Count() == 0)
+{
+    <h1 class="text-center">ไม่พบข้อมูล</h1>
+}
+else
+{
+    <h1 class="text-center">คะแนนสอบ</h1>
+
+    <table class="table table-dark">
+        <thead>
             <tr>
-                <td>@item.Id</td>
-                <td>@item.Name</td>
-                <td>@item.Score</td>
-                @if (item.Score >= 50)
-                {
-                    <td>
-                        <strong class="text-success">ผ่าน</strong>
-                    </td>
-                }
-                else
-                {
-                    <td>
-                        <strong class="text-danger">ไม่ผ่าน</strong>
-                    </td>
-                }
+                <th>รหัสนักศึกษา</th>
+                <th>ชื่อ</th>
+                <th>คะแนน</th>
+                <th>ผลสอบ</th>
+                <th></th>
             </tr>
-        }
-    </tbody>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Score</td>
+                    @if (item.Score >= 50)
+                    {
+                        <td>
+                            <strong class="text-success">ผ่าน</strong>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <strong class="text-danger">ไม่ผ่าน</strong>
+                        </td>
+                    }
+                    <td>
+                        <a type="button" class="btn btn-warning" asp-controller="Student" asp-action="Edit" asp-route-id="@item.Id">แก้ไข</a>
 
-</table>
+                        <a type="button" class="btn btn-danger" asp-controller="Student" asp-action="Delete" asp-route-id="@item.Id" onclick="return confirm('คุณต้องการลบ @item.Name หรือไม่?')">ลบ</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
